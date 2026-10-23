@@ -8,7 +8,7 @@
         </title>
         
         <!-- 
-        put . before element to make it a class ".name{}", then put it in body tag as "class = name" 
+        put # or . before element to make it a class ".name{}", then put it in body tag as "class = name" 
         -->
         <style>
             /*comment*/
@@ -48,13 +48,14 @@
                 
                 const frame = document.getElementById('game-frame');
                 const content = document.getElementById('home-content');
-                
+                if (frame.contentWindow) {
+                    frame.contentWindow.onbeforeunload = null;
+                }
                 content.style.display = 'none'; // Hide your original text and links
                 frame.style.display = 'block';  // Reveal the Pygame canvas frame
                 frame.src = gameUrl //"web/index.html";   // Start loading the game
             }
 
-            // This is the magic function your Python code will call when you press 'X'
             function closeGame() {
                 const frame = document.getElementById('game-frame');
                 const content = document.getElementById('home-content');
