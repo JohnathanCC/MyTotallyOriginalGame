@@ -114,10 +114,16 @@
                 }
                 frame.style.display = 'none';  
                 content.style.display = 'block'; 
-                frame.src = "about:blank";       //unload game with "about:blank" equilvanet concept to null ptr
+                
+                // Refresh FIRST while the frame is still technically alive
                 fetchLeaderboard('pacman', 'leaderboard-list');
                 fetchLeaderboard('snake', 'snake-list');
+                fetchLeaderboard('vibe-snake', 'vibe-snake-list');
                 
+                // Unload the game AFTER a tiny delay so the fetch requests aren't killed
+                setTimeout(() => {
+                    frame.src = "about:blank";       
+                }, 100); 
             }
     
             async function fetchLeaderboard(gameId, listElementId) {
